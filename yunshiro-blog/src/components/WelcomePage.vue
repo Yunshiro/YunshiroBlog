@@ -1,9 +1,7 @@
 <template>
   <!-- profile 部分 -->
   <div class="profile">
-    <Transition name="rotoImg">
-      <img src="../assets/welcomepage-profile.jpg" alt="profile" @click="playMusic">
-    </Transition>
+    <img :class= "{rotoPlay: isPlay, rotoStop: isStop}" class="initState" src="../assets/welcomepage-profile.jpg" alt="profile" @click="playMusic">
   </div>
 
   <!-- 导航栏等部分 -->
@@ -41,17 +39,26 @@
 
 <script setup lang="ts" name="WelcomePage">
   import { ref } from 'vue'
+
   let audio = ref()
-  let roto = ref()
   let played = 0
+
+  const isPlay = ref(false)
+  const isStop = ref(true)
+  const isConti = ref(false)
+
+
+  // 播放音乐同时让profile旋转
   function playMusic() {
     if (played === 0) {
       audio.value.play()
-      
       played = 1
+      isPlay.value = true
+      isStop.value = false
     } else if (played === 1) {
       audio.value.pause()
-      
+      isStop.value = true
+      isPlay.value = false
       played = 0
     }
   }
@@ -73,8 +80,13 @@ html {
   display: flex;
   margin: auto;
   margin-top: 40px;
+  
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgb(238, 197, 204);
+}
 
-  box-shadow: 0 0 3px;
+.profile img {
+  border-radius: 60%;
 }
 
 /* main 部分样式 */
@@ -82,7 +94,7 @@ html {
   text-align: center;
   color: white;
   font-family: 'Pacifico';
-  text-shadow: 0 0 3px;
+  text-shadow: 0 0 3px rgb(219, 107, 107);
 }
 
 .main hr {
@@ -163,13 +175,17 @@ footer div span {
 /* 播放背景music */
 
 /* 旋转 */
-.rotoPlay {
+.initState {
   animation: rotoImg 10s linear infinite;
+}
+.rotoPlay {
+  animation-play-state: running;
 }
 
 .rotoStop {
   animation-play-state: paused;
 }
+
 
 @keyframes rotoImg {
   from {
