@@ -10,10 +10,10 @@
     <hr>
     <p>I am crazy in coding!!!</p>
     <nav>
-      <li><a href="#">文章</a></li>
-      <li><a href="#">壁纸精选</a></li>
-      <li><a href="#">代办清单</a></li>
-      <li><a href="#">关于作者</a></li>
+      <li><a href="/article-page/">文章</a></li>
+      <li><a href="/wallpaper-page/">壁纸精选</a></li>
+      <li><a href="/todo-page/">代办清单</a></li>
+      <li><a href="/about-page/">关于作者</a></li>
     </nav>
   </div>
 
@@ -39,6 +39,7 @@
 
 <script setup lang="ts" name="WelcomePage">
   import { ref } from 'vue'
+  import {} from 'vue-router'
 
   let audio = ref()
   let played = 0
